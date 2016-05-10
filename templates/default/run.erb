@@ -1,0 +1,3 @@
+#!/bin/sh
+exec 2>&1
+exec /opt/push-jobs-client/bin/pushy-client -l info  -c /etc/chef/push-jobs-client.rb

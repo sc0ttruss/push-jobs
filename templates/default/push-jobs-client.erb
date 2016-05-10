@@ -1,0 +1,17 @@
+LC_ALL='en_US.UTF-8'
+
+# Chef server connect options
+chef_server_url   "<%=node['push_jobs']['url_chef']%>/organizations/myorg"
+node_name         '<%=Chef::Config.node_name%>'
+client_key        '/etc/chef/client.pem'
+trusted_certs_dir '/etc/chef/trusted_certs'
+verify_api_cert   true
+ssl_verify_mode   :verify_peer
+
+whitelist({
+     'chef-client'  => 'chef-client',
+     /^delivery-cmd (.+)$/=>"/var/opt/delivery/workspace/bin/delivery-cmd '\\1'"
+})
+
+# We're under runit, so don't output timestamp
+Mixlib::Log::Formatter.show_time = true

@@ -1,0 +1,7 @@
+name 'push-jobs'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures push-jobs'
+long_description 'Installs/Configures push-jobs'
+version '0.1.0'
