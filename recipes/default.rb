@@ -185,7 +185,7 @@ node['push_jobs']['url'].each do |_name, url|
     # cd /etc/chef/trusted_certs/
     knife ssl fetch https://#{url}
     EOH
-    # not_if { ::File.exist? "/etc/chef/trusted_certs/#{url}.crt" }
+    not_if { ::File.exist? "/etc/chef/trusted_certs/#{url.gsub('.','_')}.crt" }
   end
 end
 
