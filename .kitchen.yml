@@ -47,7 +47,7 @@ suites:
         secrets_type: "databag"
         secrets_source: "delivery_secrets"
         use_package_manager: false
-        chef_username: "delivery"
+        chef_username: "srv-delivery"
         url_chef: 'https://chef.myorg.chefdemo.net'
         url:
           chef: 'chef.myorg.chefdemo.net'
