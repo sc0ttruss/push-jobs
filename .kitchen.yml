@@ -18,6 +18,21 @@ driver_config:
 
 provisioner:
   name: chef_zero
+  chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
+  # To get above line to work, one time config of Vagrantfile as below
+  # on your local workstation ( ie where yeu run kitchen commands )
+  # also need this in your local Vagrantfile config
+  # ~/.vagrant.d/Vagrantfile
+  # Vagrant.configure("2") do |config|
+  #   if Vagrant.has_plugin?("vagrant-cachier")
+  #     config.cache.scope = :box
+  #     config.cache.enable :chef
+  #     config.cache.enable :gem
+  #     config.cache.enable :apt
+  #     config.cache.enable :yum
+  #   end
+  # end
+
   # Install this exact version of chef-client
   #require_chef_omnibus: 12.4.1
   # Use the local chef-client rpm specified in install_chef_rpm.sh:
