@@ -35,68 +35,68 @@ template '/etc/chef/push-jobs-client.rb' do
   mode 00755
 end
 
-# Create a runit configuration to start Push Jobs daemon
-
-%w(log/main env control).each do |dir|
-  directory "/etc/sv/opscode-push-jobs-client/#{dir}" do
-    mode '0755'
-    owner 'root'
-    group 'root'
-    action :create
-    recursive true
-  end
-end
-
-directory "/var/log/opscode-push-jobs-client" do
-  mode '0755'
-  owner 'root'
-  group 'root'
-  recursive true
-  action :create
-end
-
-file "/etc/sv/opscode-push-jobs-client/log/config" do
-  mode '0644'
-  owner 'root'
-  group 'root'
-  action :create
-end
-
-link "/var/log/opscode-push-jobs-client/config" do
-  to "/etc/sv/opscode-push-jobs-client/log/config"
-end
-
-# Create a script /etc/sv/opscode-push-jobs-client/run with 755 permissions
-
-template '/etc/sv/opscode-push-jobs-client/run' do
-  source 'run.erb'
-  # owner 'root'
-  # group 'root'
-  mode 00755
-end
-
-# Create a script /etc/sv/opscode-push-jobs-client/log/run with 755 permissions
-
-template '/etc/sv/opscode-push-jobs-client/log/run' do
-  source 'log_run.erb'
-  # owner 'root'
-  # group 'root'
-  mode 00755
-end
-
-# Create a symlink in the init.d directory to sv
-
-link '/etc/init.d/opscode-push-jobs-client' do
-  to '/sbin/sv'
-end
-
-# Create a symlink for pushy in the service directory
-
-link '/etc/service/opscode-push-jobs-client' do
-  to '/etc/sv/opscode-push-jobs-client'
-  action :create
-end
-
+## # Create a runit configuration to start Push Jobs daemon
+##
+## %w(log/main env control).each do |dir|
+##   directory "/etc/sv/opscode-push-jobs-client/#{dir}" do
+##     mode '0755'
+##     owner 'root'
+##     group 'root'
+##     action :create
+##     recursive true
+##   end
+## end
+##
+## directory "/var/log/opscode-push-jobs-client" do
+##   mode '0755'
+##   owner 'root'
+##   group 'root'
+##   recursive true
+##   action :create
+## end
+##
+## file "/etc/sv/opscode-push-jobs-client/log/config" do
+##   mode '0644'
+##   owner 'root'
+##   group 'root'
+##   action :create
+## end
+##
+## link "/var/log/opscode-push-jobs-client/config" do
+##   to "/etc/sv/opscode-push-jobs-client/log/config"
+## end
+##
+## # Create a script /etc/sv/opscode-push-jobs-client/run with 755 permissions
+##
+## template '/etc/sv/opscode-push-jobs-client/run' do
+##   source 'run.erb'
+##   # owner 'root'
+##   # group 'root'
+##   mode 00755
+## end
+##
+## # Create a script /etc/sv/opscode-push-jobs-client/log/run with 755 permissions
+##
+## template '/etc/sv/opscode-push-jobs-client/log/run' do
+##   source 'log_run.erb'
+##   # owner 'root'
+##   # group 'root'
+##   mode 00755
+## end
+##
+## # Create a symlink in the init.d directory to sv
+##
+## link '/etc/init.d/opscode-push-jobs-client' do
+##   to '/sbin/sv'
+## end
+##
+## # Create a symlink for pushy in the service directory
+##
+## link '/etc/service/opscode-push-jobs-client' do
+##   to '/etc/sv/opscode-push-jobs-client'
+##   action :create
+## end
+## 
 # Create the dbuild user and workspace (home dir)
 
 directory '/var/opt/delivery' do
