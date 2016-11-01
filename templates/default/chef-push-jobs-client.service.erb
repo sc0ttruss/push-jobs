@@ -1,0 +1,12 @@
+[Unit]
+Description=Push Jobs Client
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pushy-client -l info -c /etc/chef/push-jobs-client.rb
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+[root@builder1 ~]#

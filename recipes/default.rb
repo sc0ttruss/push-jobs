@@ -35,6 +35,15 @@ template '/etc/chef/push-jobs-client.rb' do
   mode 00755
 end
 
+# this is the push jobs systemd start script
+
+template '/etc/systemd/system/chef-push-jobs-client.service' do
+  source 'chef-push-jobs-client.service.erb'
+  owner 'root'
+  group 'root'
+  mode 00644
+end
+
 ## # Create a runit configuration to start Push Jobs daemon
 ##
 ## %w(log/main env control).each do |dir|
@@ -96,7 +105,7 @@ end
 ##   to '/etc/sv/opscode-push-jobs-client'
 ##   action :create
 ## end
-## 
+##
 # Create the dbuild user and workspace (home dir)
 
 directory '/var/opt/delivery' do
@@ -205,3 +214,12 @@ bash 'copy certificates to three locations' do
 end
 # have removed the cacerts.pem for the chefdk, it is assumed
 #  the chefdk is not installed on these nodes
+
+# start the push jobs client and enable after reboot
+
+service 'chef-push-jobs-client' do
+  supports status: true
+  action [:start, :enable]
+  only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
+  subscribes :restart, "template '/etc/systemd/system/chef-push-jobs-client.service'"
+end
