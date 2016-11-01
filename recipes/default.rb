@@ -218,8 +218,8 @@ end
 # start the push jobs client and enable after reboot
 
 service 'chef-push-jobs-client' do
-  supports status: true
-  action [:start, :enable]
-  only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
-  subscribes :restart, "template '/etc/systemd/system/chef-push-jobs-client.service'"
+   supports status: true
+   action [:start, :enable]
+   only_if { ::File.exist?('/etc/systemd/system/chef-push-jobs-client.service') }
+   subscribes :restart, "template '/etc/systemd/system/chef-push-jobs-client.service'"
 end
